@@ -186,15 +186,19 @@ def add_bert_features_tiered(dataset, tokenizer, seq_length, add_segment_ids=Fal
       for s_idx, ex_1s in enumerate(ex_2s['stories']):
         for ent_idx, ex in enumerate(ex_1s['entities']):
           exid = ex['example_id']
-
+          context = ''
+          for _, sentence in enumerate(ex['sentences']):
+            context += sentence
           # Generate inputs for each sentence
           all_input_ids = np.zeros((max_story_length, seq_length))
           all_input_mask = np.zeros((max_story_length, seq_length))
           if add_segment_ids:
             all_segment_ids = np.zeros((max_story_length, seq_length))
 
+
+          plus = f"entity: {ex['entity']}; context: {context};"
           for j, sent in enumerate(ex['sentences']):
-            inputs = tokenizer.encode_plus(ex['entity'], 
+            inputs = tokenizer.encode_plus(plus, 
                                           text_pair=sent, 
                                           add_special_tokens=True, 
                                           max_length=seq_length, 
