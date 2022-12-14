@@ -14,4 +14,4 @@ source env/bin/activate
 
 # run job
 pwd
-jupyter nbconvert --to notebook --execute Verifiable-Coherent-NLU.ipynb --output roberta-context
+jupyter nbconvert --to notebook --execute Verifiable-Coherent-NLU.ipynb --output roberta-context-2
